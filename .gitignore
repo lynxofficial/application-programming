@@ -1,0 +1,5 @@
+.idea/
+.gradle/
+/build/
+*.iml
+git remote add origin https://github.com/lynxofficial/application-programming.git
