@@ -2,6 +2,7 @@ import service.DefaultFilms;
 import service.MaxSumException;
 import service.MinSumException;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -10,6 +11,7 @@ public class CollectionFilms implements DefaultFilms {
     private static final String DEFAULT_NAME_OF_COLLECTION = "Name";
     private static final long DEFAULT_COST_OF_COLLECTION = 1000;
 
+    private static Factory factory;
     private long[] numberOfCollection;
     private String nameOfCollection;
     private long costOfCollection;
@@ -56,6 +58,15 @@ public class CollectionFilms implements DefaultFilms {
         this.costOfCollection = costOfCollection;
     }
 
+    public static void init() {
+        factory = new Factory(2) {
+            @Override
+            public DefaultFilms createClass() {
+                return new CollectionFilms();
+            }
+        };
+    }
+
     @Override
     public long sumOfElements() throws MaxSumException, MinSumException {
         if (Arrays.stream(numberOfCollection).sum() > 10000000) {
@@ -64,6 +75,37 @@ public class CollectionFilms implements DefaultFilms {
             System.out.println("This sum is smaller then zero!");
         }
         return Arrays.stream(numberOfCollection).sum();
+    }
+
+    @Override
+    public void output(OutputStream out) {
+        write(new PrintWriter(out));
+    }
+
+    @Override
+    public void write(Writer out) {
+        PrintWriter printWriter = new PrintWriter(out);
+        printWriter.println(factory.getClsId());
+        printWriter.println(numberOfCollection.length);
+        for (int i = 0; i < numberOfCollection.length; i++)
+            printWriter.println(numberOfCollection[i]);
+        printWriter.println(nameOfCollection);
+        printWriter.println(costOfCollection);
+    }
+
+    @Override
+    public void read(BufferedReader bufferedReader) {
+        int i, c;
+        try {
+            c = Integer.parseInt(bufferedReader.readLine());
+            numberOfCollection = new long[c];
+            for (i = 0; i < c; i++)
+                numberOfCollection[i] = Integer.parseInt(bufferedReader.readLine());
+            nameOfCollection = bufferedReader.readLine();
+            costOfCollection = Integer.parseInt(bufferedReader.readLine());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

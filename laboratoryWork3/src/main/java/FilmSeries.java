@@ -2,6 +2,7 @@ import service.DefaultFilms;
 import service.MaxSumException;
 import service.MinSumException;
 
+import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -10,9 +11,11 @@ public class FilmSeries implements DefaultFilms {
     private static final String DEFAULT_NAME_OF_SERIES = "Default name";
     private static final long DEFAULT_COST_OF_SERIES = 1000000L;
 
+    private static Factory factory;
     private long[] numberOfSeries;
     private String nameOfSeries;
     private long costOfSeries;
+
 
     public FilmSeries() {
         this(DEFAULT_NUMBER_OF_SERIES, DEFAULT_NAME_OF_SERIES, DEFAULT_COST_OF_SERIES);
@@ -56,6 +59,15 @@ public class FilmSeries implements DefaultFilms {
         this.costOfSeries = costOfSeries;
     }
 
+    public static void init() {
+        factory = new Factory(1) {
+            @Override
+            public DefaultFilms createClass() {
+                return new FilmSeries();
+            }
+        };
+    }
+
     @Override
     public long sumOfElements() throws MaxSumException, MinSumException {
         if (Arrays.stream(numberOfSeries).sum() > 1000000) {
@@ -64,6 +76,37 @@ public class FilmSeries implements DefaultFilms {
             throw new MinSumException("This sum smaller then zero!");
         }
         return Arrays.stream(numberOfSeries).sum();
+    }
+
+    @Override
+    public void output(OutputStream out) {
+        write(new PrintWriter(out));
+    }
+
+    @Override
+    public void write(Writer out) {
+        PrintWriter printWriter = new PrintWriter(out);
+        printWriter.println(factory.getClsId());
+        printWriter.println(numberOfSeries.length);
+        for (int i = 0; i < numberOfSeries.length; i++)
+            printWriter.println(numberOfSeries[i]);
+        printWriter.println(nameOfSeries);
+        printWriter.println(costOfSeries);
+    }
+
+    @Override
+    public void read(BufferedReader bufferedReader) {
+        int i, c;
+        try {
+            c = Integer.parseInt(bufferedReader.readLine());
+            numberOfSeries = new long[c];
+            for (i = 0; i < c; i++)
+                numberOfSeries[i] = Integer.parseInt(bufferedReader.readLine());
+            nameOfSeries = bufferedReader.readLine();
+            costOfSeries = Integer.parseInt(bufferedReader.readLine());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
