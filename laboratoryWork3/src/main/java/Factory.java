@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Factory {
-    int clsId;
     private static List<Factory> factories;
+
+    private int clsId;
+    private Synchronizer synchronizer;
 
     public Factory(int id) {
         this.clsId = id;
@@ -20,6 +22,14 @@ public class Factory {
 
     public int getClsId() {
         return clsId;
+    }
+
+    public Synchronizer getSynchronizer() {
+        return synchronizer;
+    }
+
+    public void setSynchronizer(Synchronizer synchronizer) {
+        this.synchronizer = synchronizer;
     }
 
     public static DefaultFilms create(int id) {

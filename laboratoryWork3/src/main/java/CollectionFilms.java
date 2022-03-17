@@ -7,11 +7,12 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class CollectionFilms implements DefaultFilms {
-    private static final long[] DEFAULT_NUMBER_OF_COLLECTION = {8, 4, 1, 5};
+    private static final long[] DEFAULT_NUMBER_OF_COLLECTION = new long[100];
     private static final String DEFAULT_NAME_OF_COLLECTION = "Name";
     private static final long DEFAULT_COST_OF_COLLECTION = 1000;
 
     private static Factory factory;
+
     private long[] numberOfCollection;
     private String nameOfCollection;
     private long costOfCollection;
@@ -66,6 +67,7 @@ public class CollectionFilms implements DefaultFilms {
             }
         };
     }
+
 
     @Override
     public long sumOfElements() throws MaxSumException, MinSumException {
