@@ -1,27 +1,29 @@
+import service.DefaultFactory;
 import service.DefaultFilms;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Factory {
+public class Factory implements DefaultFactory {
     private static List<Factory> factories;
 
-    private int clsId;
+    private int classId;
     private Synchronizer synchronizer;
 
     public Factory(int id) {
-        this.clsId = id;
+        this.classId = id;
         if (factories == null)
             factories = new ArrayList<>();
         factories.add(this);
     }
 
-    public DefaultFilms createClass() {
-        return null;
+    @Override
+    public DefaultFilms createInstance() {
+        return new CollectionFilms();
     }
 
-    public int getClsId() {
-        return clsId;
+    public int getClassId() {
+        return classId;
     }
 
     public Synchronizer getSynchronizer() {
@@ -36,8 +38,12 @@ public class Factory {
         if (factories == null)
             return null;
         for (int i = 0; i < factories.size(); i++)
-            if (factories.get(i).getClsId() == id)
-                return factories.get(i).createClass();
+            if (factories.get(i).getClassId() == id)
+                return factories.get(i).createInstance();
         return null;
+    }
+
+    public static DefaultFilms unmodifiable(DefaultFilms defaultFilms) {
+        return defaultFilms;
     }
 }

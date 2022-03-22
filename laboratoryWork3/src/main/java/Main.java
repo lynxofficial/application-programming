@@ -1,19 +1,21 @@
+import service.DefaultFilms;
 import writerAndReaderThreads.ReaderThread;
 import writerAndReaderThreads.WriterThread;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         CollectionFilms collectionFilms = new CollectionFilms();
-        ReaderThread readerThread = new ReaderThread(collectionFilms.getNumberOfCollection());
-        WriterThread writerThread = new WriterThread(collectionFilms.getNumberOfCollection());
-        readerThread.setPriority(5);
-        writerThread.setPriority(6);
-        readerThread.start();
-        writerThread.start();
-        Synchronizer synchronizer = new Synchronizer(collectionFilms);
-        NewReaderThread newReaderThread = new NewReaderThread(synchronizer);
-        NewWriterThread newWriterThread = new NewWriterThread(synchronizer);
-        newReaderThread.start();
-        newWriterThread.start();
+        CollectionFilms collectionFilms1 = new CollectionFilms(new long[]{1, 3, 5, 105, 4391});
+        FilmSeries filmSeries = new FilmSeries();
+        List<DefaultFilms> defaultFilms = new ArrayList<>();
+        defaultFilms.add(collectionFilms);
+        defaultFilms.add(collectionFilms1);
+        defaultFilms.add(filmSeries);
+        for (DefaultFilms newDefaultFilms : defaultFilms) {
+            System.out.println(newDefaultFilms);
+        }
     }
 }

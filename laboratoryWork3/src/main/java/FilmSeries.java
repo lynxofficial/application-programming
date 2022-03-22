@@ -62,7 +62,7 @@ public class FilmSeries implements DefaultFilms {
     public static void init() {
         factory = new Factory(1) {
             @Override
-            public DefaultFilms createClass() {
+            public DefaultFilms createInstance() {
                 return new FilmSeries();
             }
         };
@@ -86,7 +86,7 @@ public class FilmSeries implements DefaultFilms {
     @Override
     public void write(Writer out) {
         PrintWriter printWriter = new PrintWriter(out);
-        printWriter.println(factory.getClsId());
+        printWriter.println(factory.getClassId());
         printWriter.println(numberOfSeries.length);
         for (int i = 0; i < numberOfSeries.length; i++)
             printWriter.println(numberOfSeries[i]);

@@ -62,7 +62,7 @@ public class CollectionFilms implements DefaultFilms {
     public static void init() {
         factory = new Factory(2) {
             @Override
-            public DefaultFilms createClass() {
+            public DefaultFilms createInstance() {
                 return new CollectionFilms();
             }
         };
@@ -87,7 +87,7 @@ public class CollectionFilms implements DefaultFilms {
     @Override
     public void write(Writer out) {
         PrintWriter printWriter = new PrintWriter(out);
-        printWriter.println(factory.getClsId());
+        printWriter.println(factory.getClassId());
         printWriter.println(numberOfCollection.length);
         for (int i = 0; i < numberOfCollection.length; i++)
             printWriter.println(numberOfCollection[i]);
