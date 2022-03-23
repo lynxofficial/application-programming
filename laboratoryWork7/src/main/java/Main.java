@@ -115,7 +115,7 @@ public class Main {
         jButton6.addActionListener(actionEvent -> {
             int randomNumber = (int) (maxNumber.get() - random.nextInt((int) minNumber.get()));
             jLabel6.setText(randomNumber == desiredNumber.get() ? "You guessed the number!"
-                    : "You not guessed the number!");
+                    : randomNumber < desiredNumber.get() ? "This number is less than!" : "This number is more than!");
             jTextField3.setText(String.valueOf(randomNumber));
         });
 
