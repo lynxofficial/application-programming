@@ -1,3 +1,4 @@
 rootProject.name = 'ApplicationProgrammingLabs'
 include 'laboratoryWork3'
+include 'laboratoryWork7'
 

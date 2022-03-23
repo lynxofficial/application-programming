@@ -1,6 +1,4 @@
 import service.DefaultFilms;
-import writerAndReaderThreads.ReaderThread;
-import writerAndReaderThreads.WriterThread;
 
 import java.util.ArrayList;
 import java.util.List;
