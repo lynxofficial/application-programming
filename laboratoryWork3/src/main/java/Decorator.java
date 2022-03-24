@@ -4,7 +4,6 @@ import service.MaxSumException;
 import java.io.BufferedReader;
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.List;
 
 public class Decorator implements DefaultFilms {
     private DefaultFilms defaultFilms;
